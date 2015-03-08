@@ -1,15 +1,4 @@
-# GoogleTango AugmentedReality PointCloud Test
+# GoogleTango AR JPCT Example
 
-A simple Google Tango Augmented Reality application that uses Point Cloud data.
+A simple Google Tango Augmented Reality application that uses the JPCT Game Engine as the renderer.
 
-Written in Java.
-
-**Lessons Learned**
-
-Lighting is very important when trying to do AR on the Tango and use the Tango depth info:
-
-See my post here:
-
-http://stackoverflow.com/questions/28402718/dark-google-tango-camera-surface-when-using-depth-information/28415697#28415697
-
-Thanks to mengu@cgui for pointing out the underexposure issue
