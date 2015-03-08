@@ -1,4 +1,4 @@
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
 /*
  * Copyright 2014 Google Inc. All Rights Reserved.

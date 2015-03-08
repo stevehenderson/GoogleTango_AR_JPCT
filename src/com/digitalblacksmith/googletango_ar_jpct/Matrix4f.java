@@ -1,4 +1,4 @@
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
 /*
  * A simple Matrix4 class for OpenGL 1.0

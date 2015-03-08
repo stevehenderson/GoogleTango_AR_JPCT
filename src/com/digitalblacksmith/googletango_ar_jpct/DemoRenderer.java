@@ -1,4 +1,4 @@
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
 public interface DemoRenderer {
 	public void setCameraPosition(float x, float y, float z);

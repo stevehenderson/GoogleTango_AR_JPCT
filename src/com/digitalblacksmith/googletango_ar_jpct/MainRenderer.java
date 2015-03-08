@@ -1,4 +1,4 @@
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

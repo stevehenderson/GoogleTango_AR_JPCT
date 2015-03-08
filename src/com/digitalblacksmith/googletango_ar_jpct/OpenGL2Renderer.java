@@ -1,4 +1,4 @@
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -6,9 +6,6 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import com.projecttango.tangoutils.Renderer;
-import com.projecttango.tangoutils.renderables.PointCloud;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -23,7 +20,7 @@ import android.util.Log;
  * from:
  * https://code.google.com/p/android-tes/source/browse/trunk/opengl+example/android/AndroidOpenGLESLessons/src/com/learnopengles/android/lesson2/LessonTwoRenderer.java?r=226
  */
-public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView.Renderer, DemoRenderer {
+public class OpenGL2Renderer implements GLSurfaceView.Renderer, DemoRenderer {
 	/** Used for debug logs. */
 	private static final String TAG = "LessonTwoRenderer";
 
@@ -102,9 +99,6 @@ public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView
 	private int mPointProgramHandle;        
 
 
-	 private PointCloud mPointCloud;
-	 private int mMaxDepthPoints;
-	
 	/**
 	 * Cube scale
 	 */
@@ -137,9 +131,8 @@ public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView
 	/**
 	 * Initialize the model data.
 	 */
-	public OpenGL2PointCloudRenderer(int maxDepthPoints) {
-        mMaxDepthPoints = maxDepthPoints;
-	      
+	public OpenGL2Renderer()
+	{       
 		// Define points for a cube.            
 
 		// X, Y, Z
@@ -385,9 +378,7 @@ public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView
 
 		// Enable depth testing
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-		
-		mPointCloud = new PointCloud(mMaxDepthPoints);
-		
+
 		// Position the eye in front of the origin.
 		final float eyeX = 0.0f;
 		final float eyeY = 0.0f;
@@ -525,8 +516,6 @@ public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView
 
 
 		drawCube();
-		
-		mPointCloud.draw(mViewMatrix, mProjectionMatrix);
 		// Draw a point to indicate the light.
 		//GLES20.glUseProgram(mPointProgramHandle);        
 		//drawLight();
@@ -695,9 +684,4 @@ public class OpenGL2PointCloudRenderer extends Renderer implements GLSurfaceView
 
 		return programHandle;
 	}
-	
-	public PointCloud getPointCloud() {
-        return mPointCloud;
-    }
-	
 }

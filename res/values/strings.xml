@@ -16,8 +16,8 @@
 -->
 <resources>
 
-    <string name="app_name">Project Tango Java Point Cloud</string>
-    <string name="menu_name"> Project Tango Java Point Cloud</string>
+    <string name="app_name">GoogleTango AR JPCT</string>
+    <string name="menu_name">GoogleTango AR JPCT</string>
     <string name="vertex_count">Number of Points:</string>
     <string name="serviceversion">Tango service version:</string>
     <string name="appversion">"App version: "</string>

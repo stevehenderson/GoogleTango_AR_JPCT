@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.digitalblacksmith.tango_ar_pointcloud;
+package com.digitalblacksmith.googletango_ar_jpct;
 
+import com.digitalblacksmith.tango_ar_pointcloud.R;
 import com.google.atap.tangoservice.Tango;
 import com.google.atap.tangoservice.Tango.OnTangoUpdateListener;
 import com.google.atap.tangoservice.TangoConfig;
