@@ -27,6 +27,9 @@ import com.google.atap.tangoservice.TangoInvalidException;
 import com.google.atap.tangoservice.TangoOutOfDateException;
 import com.google.atap.tangoservice.TangoPoseData;
 import com.google.atap.tangoservice.TangoXyzIjData;
+import com.threed.jpct.Texture;
+import com.threed.jpct.TextureManager;
+import com.threed.jpct.util.BitmapHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -50,6 +53,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 
 /**
  * 
@@ -95,18 +99,19 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 	private Button mDropBoxButton;
 	//private boolean mIsAutoRecovery;
 
+
+
 	//private PCRenderer mOpenGL2Renderer;
-	private OpenGL2PointCloudRenderer mOpenGL2Renderer;
-	private DemoRenderer mDemoRenderer;
+	private OpenGL2JPCTRenderer mOpenGL2Renderer;	
 	private GLSurfaceView mGLView;
-	
+
 	private SurfaceView surfaceView;
 
 	private float mXyIjPreviousTimeStamp;
 	private float mCurrentTimeStamp;
 
 	boolean first_initialized = false;
-	
+
 	Surface tangoSurface;
 
 	Vector3f lastPosition;
@@ -144,9 +149,9 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 		//mRenderer = new GLClearRenderer();
 		int maxDepthPoints = mConfig.getInt("max_point_cloud_elements");
 
-		mOpenGL2Renderer = new OpenGL2PointCloudRenderer(maxDepthPoints);
+		mOpenGL2Renderer = new OpenGL2JPCTRenderer(maxDepthPoints, this);
 
-		mDemoRenderer = mOpenGL2Renderer;
+
 		mOpenGL2Renderer.setFirstPersonView();
 		mGLView.setRenderer(mOpenGL2Renderer);
 		mGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
@@ -173,7 +178,7 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 		//mGLView.setZOrderOnTop(true);
 		setContentView(mGLView);
 		addContentView( surfaceView, new LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
-		
+
 		/////////////////////////
 		//Create UI Objects 
 		////////////////////////
@@ -231,7 +236,7 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 	}
 
 	private void motionReset() {
-		
+
 		mTango.resetMotionTracking();
 	}
 
@@ -308,6 +313,17 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 
 
 	/**
+	 * Return the a texture from a given icon id 
+	 * @return
+	 */
+	public Texture getTextureFromIcon(int resourceId) {
+		// Create a texture out of the icon...:-)
+		Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getResources().getDrawable(resourceId)), 64, 64));		
+		return texture;
+	}
+
+
+	/**
 	 * Set up the TangoConfig and the listeners for the Tango service, then begin using the Motion
 	 * Tracking API. This is called in response to the user clicking the 'Start' Button.
 	 */
@@ -358,7 +374,7 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 						float y = (float) pose.translation[1];
 						float z = (float) pose.translation[2];
 
-						mDemoRenderer.setCameraPosition(x-dropBoxPosition.x, y-dropBoxPosition.y, z-dropBoxPosition.z);
+						mOpenGL2Renderer.setCameraPosition(x-dropBoxPosition.x, y-dropBoxPosition.y, z-dropBoxPosition.z);
 
 						lastPosition.setTo(x, y, z);
 
@@ -367,7 +383,7 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 						float qz = (float) pose.rotation[2];
 						float qw = (float) pose.rotation[3];
 
-						mDemoRenderer.setCameraAngles(qx, qy, qz, qw);
+						mOpenGL2Renderer.setCameraAngles(qx, qy, qz, qw);
 
 						// Display pose data on screen in TextViews
 						//Log.i(TAG,translationString);
@@ -482,11 +498,11 @@ public class PointCloudActivity extends Activity implements View.OnClickListener
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		
+
 		Surface surface = holder.getSurface();
-		
+
 		if (surface.isValid()) {
-					
+
 			mTango.connectSurface(0, surface);
 			first_initialized=true;
 			mTango.connect(mConfig);

@@ -44,7 +44,7 @@ import com.projecttango.tangoutils.renderables.PointCloud;
  * can be 1st person, 3rd person, or top-down.
  * 
  */
-public class PCRenderer extends Renderer implements GLSurfaceView.Renderer, DemoRenderer {
+public class PCRenderer extends Renderer implements GLSurfaceView.Renderer, ARRenderer {
 
     private PointCloud mPointCloud;
     private Grid mGrid;

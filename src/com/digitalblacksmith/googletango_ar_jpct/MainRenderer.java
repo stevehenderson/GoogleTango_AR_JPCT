@@ -19,7 +19,7 @@ import android.util.Log;
  * Based on:  http://maninara.blogspot.com/2012/09/render-camera-preview-using-opengl-es.html
  * 
  */
-public class MainRenderer implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAvailableListener, DemoRenderer {
+public class MainRenderer implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAvailableListener, ARRenderer {
 
 	private static final String TAG = MainRenderer.class.getSimpleName();
 
